@@ -8,7 +8,7 @@ namespace Assets
 {
     class Die
     {
-        private static Dictionary<string, int> Ranges = new Dictionary<string, int>()
+        private static readonly Dictionary<string, int> Ranges = new Dictionary<string, int>()
         {
             { DieType.D4, 4 },
             { DieType.D6, 6 },
@@ -43,7 +43,7 @@ namespace Assets
         }
     }
 
-    public struct DieType
+    struct DieType
     {
         public const string D4 = "D4";
         public const string D6 = "D6";
