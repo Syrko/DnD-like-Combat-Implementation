@@ -13,34 +13,47 @@ namespace Assets
         private int tempHP;
 
         public int MaxHP { get => maxHP; set => maxHP = value; }
-        public int CurrentHP { get => currentHP; set => currentHP = value; }
+        public int CurrentHP { get => currentHP;}
         public int TempHP { get => tempHP; set => tempHP = value; }
 
-        public void takeDamage(int damage)
+        public void TakeDamage(int damage)
         {
-            if (TempHP == 0)
+            if (tempHP == 0)
             {
-                CurrentHP -= damage;
+                currentHP -= damage;
             }
-            else if (TempHP > damage)
+            else if (tempHP > damage)
             {
-                TempHP -= damage;
+                tempHP -= damage;
             }
             else
             {
-                damage -= TempHP;
-                TempHP = 0;
-                CurrentHP -= damage;
+                damage -= tempHP;
+                tempHP = 0;
+                currentHP -= damage;
             }
             
         }
 
-        public void heal(int healAmount)
+        public void Heal(int healAmount)
         {
-            if (CurrentHP != maxHP)
-            {
-                CurrentHP += healAmount;
+            int missingHP = maxHP - currentHP;
+            if (missingHP > 0) {
+                if (missingHP >= healAmount)
+                {
+                    currentHP += healAmount;
+                }
+                else
+                {
+                    currentHP = maxHP;
+                }
             }
+        }
+
+        public void Rest()
+        {
+            currentHP = maxHP;
+            tempHP = 0;
         }
     }
 }
