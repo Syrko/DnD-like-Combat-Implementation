@@ -1,0 +1,9 @@
+Review
+	proficiency type (CharacterStats)
+	background type (Character Stats)
+	fetures type (Class)
+
+Add
+	+ Alignment struct
+	+ Race classes
+	+ Class classes
