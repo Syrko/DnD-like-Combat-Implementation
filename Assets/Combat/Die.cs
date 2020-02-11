@@ -18,6 +18,7 @@ namespace Combat
             { DieType.D20, 20 },
             { DieType.D100, 10 }
         };
+        private static Random rand = new Random();
 
         private int range;
         private string type;
@@ -33,8 +34,7 @@ namespace Combat
 
         public int RollDie()
         {
-            Random r = new Random();
-            int result = r.Next(1, range);
+            int result = rand.Next(1, range);
             
             if(type == DieType.D100)
                 result = result * 10;
