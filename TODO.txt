@@ -1,9 +1,8 @@
 Review
-	proficiency type (CharacterStats)
-	background type (Character Stats)
-	fetures type (Class)
+	proficiency type (CharacterStats) => integer
+	background type (Character Stats) => string name, list<string> bonuses  
+	features type (Class)
 
 Add
-	+ Alignment struct
-	+ Race classes
-	+ Class classes
+	+ Race classes => string name, list<string> bonuses  
+	+ Class classes => string name, list<string> bonuses  

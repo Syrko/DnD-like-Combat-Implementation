@@ -4,10 +4,10 @@ using System;
 
 public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
 {
-    // private void proficiency
     // private void background
     // private Item[3] attunement
-    
+
+    private int proficiency;
     private Class characterClass;
     private Race race;
     private Alignment alignment;
