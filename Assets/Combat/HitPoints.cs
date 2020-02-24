@@ -4,44 +4,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Combat
+namespace Assets.Combat
 {
-    class HitPoints
+    public class HitPoints
     {
         private int maxHP;
         private int currentHP;
         private int tempHP;
 
         public int MaxHP { get => maxHP; set => maxHP = value; }
-        public int CurrentHP { get => currentHP;}
+        public int CurrentHP { get => currentHP; }
         public int TempHP { get => tempHP; set => tempHP = value; }
 
-        public void TakeDamage(int damage)
+        public void Damage(int amount)
         {
             if (tempHP == 0)
             {
-                currentHP -= damage;
+                currentHP -= amount;
+                CheckForDeath();
             }
-            else if (tempHP > damage)
+            else if (tempHP > amount)
             {
-                tempHP -= damage;
+                tempHP -= amount;
             }
             else
             {
-                damage -= tempHP;
+                amount -= tempHP;
                 tempHP = 0;
-                currentHP -= damage;
+                currentHP -= amount;
+                CheckForDeath();
             }
-            
         }
 
-        public void Heal(int healAmount)
+        public void Heal(int amount)
         {
             int missingHP = maxHP - currentHP;
             if (missingHP > 0) {
-                if (missingHP >= healAmount)
+                if (missingHP >= amount)
                 {
-                    currentHP += healAmount;
+                    currentHP += amount;
                 }
                 else
                 {
@@ -50,10 +51,18 @@ namespace Combat
             }
         }
 
+        // TODO add to diagram
         public void Rest()
         {
             currentHP = maxHP;
             tempHP = 0;
+        }
+
+        // TODO add to diagram
+        private void CheckForDeath()
+        {
+            if (currentHP <= 0)
+                throw new NotImplementedException();
         }
     }
 }

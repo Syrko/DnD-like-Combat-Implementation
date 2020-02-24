@@ -6,8 +6,8 @@ using System;
 
 public class CombatManager : MonoBehaviour
 {
-    private List<CharacterStats> combatQueue;
-    private CharacterStats activeCharacter;
+    private List<Character> combatQueue;
+    private Character activeCharacter;
 
     /// <summary>
     /// Get all game objects that are tagged as combatants and put in a list their characterStats component
@@ -15,11 +15,11 @@ public class CombatManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        combatQueue = new List<CharacterStats>();
+        combatQueue = new List<Character>();
         var characters = GameObject.FindGameObjectsWithTag("Combatant");
         foreach(var character in characters)
         {
-            combatQueue.Add(character.GetComponent<CharacterStats>());
+            combatQueue.Add(character.GetComponent<Character>());
         }
     }
 

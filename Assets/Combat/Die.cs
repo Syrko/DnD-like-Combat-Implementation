@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Combat
+namespace Assets.Combat
 {
     class Die
     {
@@ -37,7 +37,7 @@ namespace Combat
             int result = rand.Next(1, range);
             
             if(type == DieType.D100)
-                result = result * 10;
+                result *= 10;
 
             return result;
         }
