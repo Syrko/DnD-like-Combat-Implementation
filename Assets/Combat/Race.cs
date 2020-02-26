@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
-    // TODO add to diagram
-    class Race
+    abstract class Race
     {
+        private string name;
+        private Dictionary<string, int> abilityScoreIncrease; // TODO change diagram
+        private Dictionary<string, int> abilityScoreDecrease;
+        private int speed;
+        private List<string> languages;
     }
 }

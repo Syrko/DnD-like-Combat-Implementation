@@ -51,14 +51,12 @@ namespace Assets.Combat
             }
         }
 
-        // TODO add to diagram
         public void Rest()
         {
             currentHP = maxHP;
             tempHP = 0;
         }
 
-        // TODO add to diagram
         private void CheckForDeath()
         {
             if (currentHP <= 0)

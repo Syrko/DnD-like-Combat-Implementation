@@ -9,10 +9,10 @@ namespace Assets.Combat
 {
     abstract class Class // Hmmm this class appears to be made out of class
     {
-        private int level;
-        private string name;
-        private Die hitDie;
-        private SavingThrows savingThrows;
+        protected int level;
+        protected string name;
+        protected Die hitDie;
+        protected SavingThrows savingThrows;
 
         public void LevelUp()
         {
@@ -27,7 +27,6 @@ namespace Assets.Combat
         }
     }
 
-    // TODO add to diagram
     struct Alignment
     {
         public const string LawfulGood = "Lawful Good";
