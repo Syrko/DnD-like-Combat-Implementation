@@ -8,5 +8,8 @@ namespace Assets.Combat
 {
     class Equipment
     {
+        private List<Weapon> weaponList;
+        private List<Armor> armorList;
+        private List<Item> itemList;
     }
 }

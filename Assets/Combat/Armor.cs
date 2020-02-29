@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
-    class Thief : Rogue
+    abstract class Armor : Equipment
     {
+        private int acBonus;
+        private string name; //TODO fix name in diagram
+        private int maxDexterity;
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
-    class VanillaRogue: Rogue
+    class VanillaRogue : Rogue
     {
         VanillaRogue()
         {

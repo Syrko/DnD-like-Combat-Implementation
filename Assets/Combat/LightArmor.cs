@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
-    class Thief : Rogue
+    abstract class LightArmor : Armor
     {
+        LightArmor()
+        {
+
+        }
     }
 }
