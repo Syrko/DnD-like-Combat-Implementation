@@ -9,7 +9,7 @@ namespace Assets.Combat
     abstract class Armor : Equipment
     {
         private int acBonus;
-        private string name; //TODO fix name in diagram
+        private string name;    //TODO change diagram -- fix name in diagram
         private int maxDexterity;
     }
 }

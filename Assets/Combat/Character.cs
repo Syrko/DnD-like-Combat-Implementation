@@ -10,7 +10,7 @@ public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
     private Race race;
     private int proficiency;
     private Background background;
-    private string alignment; // TODO Change diagram
+    private string alignment; // TODO Change diagram -- Alignment type to string
     private HitPoints hitPoints;
     private AbilityScores abilityScores;
     private Equipment equipment;
@@ -36,9 +36,9 @@ public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
     internal Equipment Equipment { get => equipment; set => equipment = value; }
     internal Background Background { get => background; set => background = value; }
 
-    public void Damage(HitPoints hp, int amount)
+    public void Damage(int amount)
     {
-        throw new NotImplementedException();
+        hitPoints.Damage(amount);
     }
 
     public void Die()
@@ -46,12 +46,33 @@ public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
         throw new NotImplementedException();
     }
 
-    public void Heal(HitPoints hp, int amount)
+    public void Heal(int amount)
+    {
+        hitPoints.Heal(amount);
+    }
+
+    public void LevelUp()
+    {
+        characterClass.LevelUp();
+    }
+
+    public void Move(int distance)
     {
         throw new NotImplementedException();
     }
 
-    public void LevelUp()
+    public void UseSkill()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Attack(Weapon weapon, Character target)
+    {
+        //int damageAmount =
+        throw new NotImplementedException();
+    }
+
+    public void CastSpell()
     {
         throw new NotImplementedException();
     }

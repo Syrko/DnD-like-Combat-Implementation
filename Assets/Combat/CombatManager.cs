@@ -38,7 +38,7 @@ public class CombatManager : MonoBehaviour
             activeCharacter = combatQueue[activeCharIndex];
             if (activeCharacter.PlayerControlled)
             {
-                // TODO detect if a move was input this frame or yield
+                // Detect if a move was input this frame or yield
                 if (DetectInput())
                 {
                     // TODO do action

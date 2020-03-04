@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
-    public class Equipment
+    class Item
     {
-        private List<Weapon> weaponList;
-        private List<Armor> armorList;
-        private List<Item> itemList;
+        // Item dummy class
     }
 }

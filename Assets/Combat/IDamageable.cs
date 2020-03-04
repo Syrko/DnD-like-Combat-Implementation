@@ -8,7 +8,8 @@ namespace Assets.Combat
 {
     interface IDamageable
     {
-        public void Damage(HitPoints hp, int amount);
-        public void Heal(HitPoints hp, int amount);
+        // TODO change diagram -- Remove hp param
+        public void Damage(int amount);
+        public void Heal(int amount);
     }
 }

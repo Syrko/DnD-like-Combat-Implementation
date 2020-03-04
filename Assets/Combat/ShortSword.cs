@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
-    abstract class ShortSword : Weapon
+    class ShortSword : Weapon
     {
         ShortSword()
         {
-            damage = new Die(DieType.D6);
-            name = "ShortSword";
-            range = 0;
+            Die damage = new Die(DieType.D6);
+            string name = "ShortSword";
+            int range = 0;
             //TODO set weapon type = martial
         }
     }
