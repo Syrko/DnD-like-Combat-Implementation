@@ -8,15 +8,19 @@ namespace Assets.Combat
 {
     public abstract class Weapon : Equipment
     {
-        private int damage;
-        private int spdFactorModifier;
+        // TODO change diagram --  update class
+        private Die dieDamage;
+        private int numberOfDice; 
         private string name;    //TODO change diagram -- fix name in diagram
         private int range;
-        private string type;    // TODO change diagram -- change type
+        private bool isMartial;    // TODO change diagram -- change type
+        private bool isVersatile;
 
-        public int RollForAttack()
-        {
-            
-        }
+        public int NumberOfDice { get => numberOfDice; set => numberOfDice = value; }
+        public string Name { get => name; set => name = value; }
+        public int Range { get => range; set => range = value; }
+        public bool IsMartial { get => isMartial; set => isMartial = value; }
+        public bool IsVersatile { get => isVersatile; set => isVersatile = value; }
+        internal Die DieDamage { get => dieDamage; set => dieDamage = value; }
     }
 }
