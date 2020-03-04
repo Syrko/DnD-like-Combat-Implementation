@@ -8,6 +8,6 @@ namespace Assets.Combat
 {
     abstract class Rogue : Class
     {
-
+        
     }
 }

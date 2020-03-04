@@ -13,7 +13,9 @@ namespace Assets.Combat
         protected string name;
         protected Die hitDie;
         protected SavingThrows savingThrows;
+        private List<string> proficiencies;
 
+        public List<string> Proficiencies { get => proficiencies; }
         public void LevelUp()
         {
             try

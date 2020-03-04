@@ -9,7 +9,7 @@ namespace Assets.Combat
     interface IDamageable
     {
         // TODO change diagram -- Remove hp param
-        public void Damage(int amount);
-        public void Heal(int amount);
+        void Damage(int amount);
+        void Heal(int amount);
     }
 }

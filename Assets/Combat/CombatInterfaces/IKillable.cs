@@ -8,6 +8,6 @@ namespace Assets.Combat
 {
     interface IKillable
     {
-        public void Die();
+        void Die();
     }
 }
