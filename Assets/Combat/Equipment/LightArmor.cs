@@ -8,9 +8,6 @@ namespace Assets.Combat
 {
     abstract class LightArmor : Armor
     {
-        LightArmor()
-        {
-
-        }
+        private int maxDexterity = -1; // TODO change diagram -- add this and remove it from armor
     }
 }

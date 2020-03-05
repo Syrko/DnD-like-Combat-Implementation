@@ -10,6 +10,5 @@ namespace Assets.Combat
     {
         private int acBonus;
         private string name;    //TODO change diagram -- fix name in diagram
-        private int maxDexterity;
     }
 }
