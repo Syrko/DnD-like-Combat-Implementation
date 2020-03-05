@@ -50,6 +50,28 @@ namespace Assets.Combat
                     break;
             }
         }
+
+        public int GetAbilityModifier(string abilityType)
+        {
+            switch (abilityType)
+            {
+                case AbilityType.Strength:
+                    return (strength - 10) / 2;
+                case AbilityType.Dexterity:
+                    return (dexterity - 10) / 2;
+                case AbilityType.Constitution:
+                    return (constitution - 10) / 2; ;
+                case AbilityType.Intelligence:
+                    return (intelligence - 10) / 2;
+                case AbilityType.Wisdom:
+                    return (wisdom - 10) / 2;
+                case AbilityType.Charisma:
+                    return (charisma - 10) / 2;
+                default:
+                    Debug.Log("Could not calculate ability modifier... AbilityType was: " + abilityType);
+                    return 0;
+            }
+        }
     }
 
     struct AbilityType
