@@ -8,6 +8,7 @@ namespace Assets.Combat
 {
     class Die
     {
+        public readonly static int NAT20 = 20;
         private static readonly Dictionary<string, int> Ranges = new Dictionary<string, int>()
         {
             { DieType.D4, 4 },
