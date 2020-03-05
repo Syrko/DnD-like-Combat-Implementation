@@ -68,8 +68,41 @@ public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
 
     public void Attack(Weapon weapon, Character target)
     {
-        //int damageAmount =
-        throw new NotImplementedException();
+        int abilityModifier;
+        abilityModifier = AbilityScores.GetAbilityModifier(AbilityType.Strength);
+        if (weapon.IsVersatile)
+        {
+            int dex = AbilityScores.GetAbilityModifier(AbilityType.Dexterity);
+            if (dex > abilityModifier)
+                abilityModifier = dex;
+        }
+        int prof = 0;
+        if (weapon.IsMartial)
+        {
+            if (characterClass.Proficiencies.Contains("Martial"))
+                prof = proficiency;
+        }
+        else if (!weapon.IsMartial)
+        {
+            if (characterClass.Proficiencies.Contains("Simple"))
+                prof = proficiency;
+        }
+
+        Die d20 = new Die(DieType.D20);
+        int rolled = d20.RollDie();
+
+        int attackRoll = rolled + prof + abilityModifier;
+        if (attackRoll >= target.AC)
+        {
+            int damage = 0;
+            for (int i = 0; i < weapon.NumberOfDice; i++)
+                damage += weapon.DieDamage.RollDie();
+            if (rolled == Assets.Combat.Die.NAT20)
+                damage *= 2;
+            damage += abilityModifier;
+
+            target.Damage(damage);
+        }
     }
 
     public void CastSpell()
