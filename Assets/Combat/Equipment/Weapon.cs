@@ -27,11 +27,11 @@ namespace Assets.Combat
         }
 
         // TODO change diagram -- change access modifier
-        internal int NumberOfDice { get => numberOfDice; set => numberOfDice = value; }
-        internal string Name { get => name; set => name = value; }
-        internal int Range { get => range; set => range = value; }
-        internal bool IsMartial { get => isMartial; set => isMartial = value; }
-        internal bool IsFinesse { get => isFinesse; set => isFinesse = value; }
-        internal Die DieDamage { get => dieDamage; set => dieDamage = value; }
+        internal int NumberOfDice { get => numberOfDice; }
+        internal string Name { get => name; }
+        internal int Range { get => range; }
+        internal bool IsMartial { get => isMartial; }
+        internal bool IsFinesse { get => isFinesse; }
+        internal Die DieDamage { get => dieDamage; }
     }
 }
