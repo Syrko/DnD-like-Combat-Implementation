@@ -9,7 +9,8 @@ namespace Assets.Combat
     interface ICharacter
     {
         void LevelUp();
-        void Move(int distance);
+        // TODO change diagram -- change parameter type for distance
+        bool Move(double distance);
         void UseSkill();
         void Attack(Weapon weapon, Character target);
         void CastSpell();

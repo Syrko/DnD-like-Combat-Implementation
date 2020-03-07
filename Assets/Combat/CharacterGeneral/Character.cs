@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Assets.Combat;
 using System;
+using Assets;
 
 public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
 {
@@ -56,9 +57,10 @@ public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
         characterClass.LevelUp();
     }
 
-    public void Move(int distance)
+    public bool Move(double distance)
     {
-        throw new NotImplementedException();
+        distance = HelperFunctions.MetersToFeet(distance);
+        return distance <= race.Speed * 5;
     }
 
     public void UseSkill()
