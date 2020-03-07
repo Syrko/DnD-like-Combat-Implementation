@@ -15,6 +15,7 @@ public class CombatManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        CombatLog.AddMessageToQueue("The party has entered combat.");
         combatQueue = new List<Character>();
         var characters = GameObject.FindGameObjectsWithTag("Combatant");
         foreach(var character in characters)
@@ -36,6 +37,7 @@ public class CombatManager : MonoBehaviour
         while (true)
         {
             activeCharacter = combatQueue[activeCharIndex];
+            CombatLog.AddMessageToQueue("It is " + activeCharacter.CharacterName + "'s turn.");
             if (activeCharacter.PlayerControlled)
             {
                 // Detect if a move was input this frame or yield
@@ -56,11 +58,13 @@ public class CombatManager : MonoBehaviour
 
             if (combatQueue.All(combatant => combatant.PlayerControlled))
             {
+                CombatLog.AddMessageToQueue("Combat ended in Victory!");
                 EndCombat(true);
                 break;
             }
             else if (combatQueue.All(combatant => combatant.PlayerControlled == false))
             {
+                CombatLog.AddMessageToQueue("You were defeated!");
                 EndCombat(false);
                 break;
             }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CombatLog : MonoBehaviour
 {
-    private Queue<string> messageQueue;
+    private static Queue<string> messageQueue;
 
     void Awake()
     {
@@ -21,7 +21,7 @@ public class CombatLog : MonoBehaviour
         }
     }
 
-    internal void AddMessageToQueue(string msg)
+    internal static void AddMessageToQueue(string msg)
     {
         messageQueue.Enqueue(msg);
     }

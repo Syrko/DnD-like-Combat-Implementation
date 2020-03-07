@@ -103,7 +103,12 @@ public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
                 damage *= 2;
             damage += abilityModifier;
 
+            CombatLog.AddMessageToQueue(CharacterName + " succeeded at attacking " + target.CharacterName + " and inflicted " + damage + "damage.");
             target.Damage(damage);
+        }
+        else
+        {
+            CombatLog.AddMessageToQueue(CharacterName + " failed at attacking " + target.CharacterName + ".");
         }
     }
 
