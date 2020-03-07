@@ -86,8 +86,9 @@ namespace Assets.Dataset
                         bool stealthDisadvantage = reader.GetBoolean(reader.GetOrdinal("stealthDisadvantage"));
                         string type = reader.GetString(reader.GetOrdinal("type"));
                         int strengthRequirement = reader.GetInt32(reader.GetOrdinal("strengthRequirement"));
+                        int maxDexterity = reader.GetInt32(reader.GetOrdinal("maxDexterity"));
 
-                        return new Armor(ac, name, stealthDisadvantage, type, strengthRequirement);
+                        return new Armor(ac, name, stealthDisadvantage, type, strengthRequirement, maxDexterity);
                     }
                     else
                     {
