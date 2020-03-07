@@ -8,7 +8,6 @@ namespace Assets.Combat
 {
     interface IDamageable
     {
-        // TODO change diagram -- Remove hp param
         void Damage(int amount);
         void Heal(int amount);
     }

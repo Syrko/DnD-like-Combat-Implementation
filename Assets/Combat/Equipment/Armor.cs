@@ -8,9 +8,8 @@ namespace Assets.Combat
 {
     public class Armor : Equipment
     {
-        //TODO Update Diagram
         private int acBonus;
-        private string name;    //TODO change diagram -- fix name in diagram
+        private string name;
         private bool stealthDisadvantage;
         private string type;
         private int strengthRequirement;

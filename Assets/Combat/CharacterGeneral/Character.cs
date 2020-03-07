@@ -10,7 +10,7 @@ public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
     private Race race;
     private int proficiency;
     private Background background;
-    private string alignment; // TODO Change diagram -- Alignment type to string
+    private string alignment;
     private HitPoints hitPoints;
     private AbilityScores abilityScores;
     private Equipment equipment;
@@ -70,7 +70,7 @@ public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
     {
         int abilityModifier;
         abilityModifier = AbilityScores.GetAbilityModifier(AbilityType.Strength);
-        if (weapon.IsVersatile)
+        if (weapon.IsFinesse)
         {
             int dex = AbilityScores.GetAbilityModifier(AbilityType.Dexterity);
             if (dex > abilityModifier)
