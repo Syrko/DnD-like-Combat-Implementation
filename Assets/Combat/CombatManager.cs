@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Assets.Combat;
 
 public class CombatManager : MonoBehaviour
 {
@@ -34,21 +35,27 @@ public class CombatManager : MonoBehaviour
     IEnumerator CombatLoop()
     {
         int activeCharIndex = 0;
+        
+        CombatLog.AddMessageToQueue("It is " + activeCharacter.CharacterName + "'s turn.");
         while (true)
         {
             activeCharacter = combatQueue[activeCharIndex];
-            CombatLog.AddMessageToQueue("It is " + activeCharacter.CharacterName + "'s turn.");
+            activeCharacter.Speed = activeCharacter.Race.Speed + activeCharacter.CharacterClass.Speed;
             if (activeCharacter.PlayerControlled)
             {
                 // Detect if a move was input this frame or yield
-                if (DetectInput())
+                while (true)
                 {
-                    // TODO do action
-                }
-                else
-                {
-                    yield return null;
-                    continue;
+                    if (DetectInput())
+                    {
+                        // TODO do action
+                        // e.g activeCharacter.Attack(activeCharacter.Equipment.WeaponList[0], combatQueue[5]);
+                    }
+                    else
+                    {
+                        yield return null;
+                        continue;
+                    }
                 }
             }
             else
@@ -71,17 +78,45 @@ public class CombatManager : MonoBehaviour
             else
             {
                 activeCharIndex = (activeCharIndex + 1) % combatQueue.Count(); // Go through the list, rotating between the combatants
+                CombatLog.AddMessageToQueue("It is " + combatQueue[activeCharIndex].CharacterName + "'s turn.");
             }
         }
     }
 
-    bool DetectInput()
+    bool DetectInput(Weapon weapon, Character actor, Character target, double? distance, string Type = "nothing")
     {
-        throw new NotImplementedException();
+        try
+        {
+            switch (Type)
+            {
+                case "Move":
+                    actor.Move(distance.Value);
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
     }
+
 
     void EndCombat(bool victory)
     {
-        throw new NotImplementedException();
+        if (!victory)
+        {
+            // TODO reload prompt
+        }
+        else
+        {
+            var combatants = GameObject.FindGameObjectsWithTag("Combatant");
+            foreach(var combatant in combatants)
+            {
+                // TODO change to character tag
+                combatant.tag = "temp";
+            }
+        }
     }
 }

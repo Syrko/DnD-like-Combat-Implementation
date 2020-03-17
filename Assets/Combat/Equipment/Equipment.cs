@@ -11,5 +11,9 @@ namespace Assets.Combat
         private List<Weapon> weaponList;
         private List<Armor> armorList;
         private List<Item> itemList;
+
+        public List<Weapon> WeaponList { get => weaponList; set => weaponList = value; }
+        public List<Armor> ArmorList { get => armorList; set => armorList = value; }
+        internal List<Item> ItemList { get => itemList; set => itemList = value; }
     }
 }
