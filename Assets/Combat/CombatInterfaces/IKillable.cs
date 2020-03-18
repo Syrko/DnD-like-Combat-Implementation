@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
+    /// <summary>
+    /// Interface to be implemented by classes for objects that can die.
+    /// </summary>
     interface IKillable
     {
         void Die();

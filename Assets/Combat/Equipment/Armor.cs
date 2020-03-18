@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
+    /// <summary>
+    /// Parent class for all the armors of the game.
+    /// Every individual armor type inherits and can be cast to and from this class.
+    /// </summary>
     public class Armor : Equipment
     {
         private int acBonus;
@@ -15,6 +19,8 @@ namespace Assets.Combat
         private int strengthRequirement;
         private int maxDexterity;
 
+        // Simple constructor for the armor class. Typically used when loading an armor piece from the database.
+        // After creating the Armor object it can be cast to another class inheriting from Armor.
         internal Armor(int acBonus, string name, bool stealthDisadvantage, string type, int strengthRequirement, int maxDexterity)
         {
             this.acBonus = acBonus;

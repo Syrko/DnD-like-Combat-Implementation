@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Assets
 {
+    /// <summary>
+    /// Simple class containing helper functions
+    /// </summary>
     class HelperFunctions
     {
         public static double MetersToFeet(double meters)

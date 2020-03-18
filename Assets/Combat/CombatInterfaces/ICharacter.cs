@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
+    /// <summary>
+    /// Interface to be implemented by classes for objects that are considered characters.
+    /// </summary>
     interface ICharacter
     {
         void LevelUp();

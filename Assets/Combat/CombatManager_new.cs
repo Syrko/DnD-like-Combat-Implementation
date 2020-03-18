@@ -12,7 +12,7 @@ public class CombatManager_new : MonoBehaviour
     private int nextActiveCharacterIndex;
 
     /// <summary>
-    /// Get all game objects that are tagged as combatants and put in a list their characterStats component
+    /// Get all game objects that are tagged as combatants and put in a list their 'Character' component
     /// in order to execute combat functions.
     /// </summary>
     private void Awake()
@@ -29,11 +29,16 @@ public class CombatManager_new : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Roll initiative for all the combatants at the first frame and place them in the combat queue accordingly
         combatQueue = combatQueue.OrderByDescending(combatant => combatant.Initiative).ToList();
         CombatLog.AddMessageToQueue("Initiative rolled");
         nextActiveCharacterIndex = 0;
     }
 
+    /// <summary>
+    /// Can be called to progress the combat queue.
+    /// If the next character is dead, it proceeds to the next one without needing to be called again.
+    /// </summary>
     public void NextActiveCharacter()
     {
         do
@@ -44,12 +49,22 @@ public class CombatManager_new : MonoBehaviour
         CombatLog.AddMessageToQueue("It's " + activeCharacter.name + "'s turn!");
     }
 
+    /// <summary>
+    /// Can be called when a character wants to move and returns true if able.
+    /// </summary>
+    /// <param name="distance">The distance in unity units(meters)</param>
+    /// <returns>Returns true if the character can move or false if not.</returns>
     public bool ActiveCharacterMoves(double distance)
     {   
         bool canMove = activeCharacter.Move(distance);
         return canMove;
     }
 
+    /// <summary>
+    /// Can be called when a character wants to attack.
+    /// </summary>
+    /// <param name="weapon">The equipped weapon</param>
+    /// <param name="target">The target of the attack</param>
     public void ActiveCharacterAttacks(Weapon weapon, Character target)
     {
         activeCharacter.Attack(weapon, target);
@@ -62,29 +77,47 @@ public class CombatManager_new : MonoBehaviour
         // CheckForCombatEnd();
     }
 
+    /// <summary>
+    /// Needs to be called when the combat start for making the first character the active character
+    /// </summary>
     public void StartCombat()
     {
         NextActiveCharacter();
+        activeCharacter.ResetSpeed();
     }
 
+    /// <summary>
+    /// This method is called when a character ends its turn
+    /// </summary>
     public void EndActiveCharacterTurn()
     {
         NextActiveCharacter();
+        activeCharacter.ResetSpeed();
     }
 
+    /// <summary>
+    /// This method should be called when the battle ends.
+    /// </summary>
+    /// <param name="Victory">If the player party was victorious this should be true</param>
     public void EndCombat(bool Victory)
     {
         if (!Victory)
         {
             throw new NotImplementedException();
-            // Show reload screen
+            // TODO Show reload screen
         }
         else
         {
+            // TODO Show end combat screen
             throw new NotImplementedException();
         }
     }
 
+    /// <summary>
+    /// Method to be called when a character needs to take damage from a source other than the active character (e.g traps)
+    /// </summary>
+    /// <param name="target">Target of the damage</param>
+    /// <param name="source">Source of the damage</param>
     public void OthersourceDamage(Character target, object source)
     {
         // Have fun
@@ -94,8 +127,12 @@ public class CombatManager_new : MonoBehaviour
         CheckForCombatEnd();
     }
 
+    /// <summary>
+    /// Should be called after damage is dealt to ensure a check is run for combat end.
+    /// </summary>
     private void CheckForCombatEnd()
     {
+        // Iterates through the combat queue to find if any new characters died.
         foreach (Character character in combatQueue)
         {
             bool isDead = character.CheckForDeath();
@@ -104,6 +141,7 @@ public class CombatManager_new : MonoBehaviour
                 CombatLog.AddMessageToQueue(character.name + " has died!");
             }
         }
+        // Checks to see if the combat end requiriments have been reached.
         if (combatQueue.Any(combatant => combatant.PlayerControlled && combatant.IsAlive))
         {
             if (combatQueue.Any(combatant => !combatant.PlayerControlled && combatant.IsAlive))

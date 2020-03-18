@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
+    /// <summary>
+    /// Class representing the dice. Contains dictionary for creating all the necessary dice types.
+    /// The types are to be accessed through the DieType struct.
+    /// </summary>
     class Die
     {
         public readonly static int NAT20 = 20;
@@ -27,12 +31,20 @@ namespace Assets.Combat
         public int Range { get => range; }
         public string Type { get => type; }
 
+        /// <summary>
+        /// Constructor for creating a die of some type.
+        /// </summary>
+        /// <param name="Type">RECOMMENDED: Use the DieType struct to avoid mistakes.</param>
         public Die(string Type)
         {
             this.type = Type;
             this.range = Die.Ranges[Type];
         }
 
+        /// <summary>
+        /// Rolling the die according to its type
+        /// </summary>
+        /// <returns></returns>
         public int RollDie()
         {
             int result = rand.Next(1, range);

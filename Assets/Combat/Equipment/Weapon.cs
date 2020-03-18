@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
+    /// <summary>
+    /// Parent class for all the weapons of the game.
+    /// Every individual weapon type inherits and can be cast to and from this class.
+    /// </summary>
     public class Weapon : Equipment
     {
         private Die dieDamage;
@@ -15,6 +19,8 @@ namespace Assets.Combat
         private bool isMartial;
         private bool isFinesse;
 
+        // Simple constructor for the weapon class. Typically used when loading a weapon from the database.
+        // After creating the Weapon object it can be cast to another class inheriting from Weapon.
         internal Weapon(Die dieDamage, int numberOfDice, string name, int range, bool isMartial, bool isFinesse)
         {
             this.dieDamage = dieDamage;

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
+    /// <summary>
+    /// Skeletal implementation of the equipment class.
+    /// TODO Improve and expand its functionality
+    /// </summary>
     public class Equipment
     {
         private List<Weapon> weaponList;
