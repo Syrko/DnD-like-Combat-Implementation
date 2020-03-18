@@ -21,7 +21,6 @@ namespace Assets.Combat
             if (tempHP == 0)
             {
                 currentHP -= amount;
-                CheckForDeath();
             }
             else if (tempHP > amount)
             {
@@ -32,7 +31,6 @@ namespace Assets.Combat
                 amount -= tempHP;
                 tempHP = 0;
                 currentHP -= amount;
-                CheckForDeath();
             }
         }
 
@@ -57,10 +55,10 @@ namespace Assets.Combat
             tempHP = 0;
         }
 
-        private void CheckForDeath()
+        // TODO change in diagram
+        public bool CheckForDeath()
         {
-            if (currentHP <= 0)
-                throw new NotImplementedException();
+            return currentHP <= 0;
         }
     }
 }

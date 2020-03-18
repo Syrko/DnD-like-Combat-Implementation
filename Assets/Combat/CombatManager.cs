@@ -7,6 +7,7 @@ using Assets.Combat;
 
 public class CombatManager : MonoBehaviour
 {
+    /*
     private List<Character> combatQueue;
     private Character activeCharacter;
 
@@ -29,7 +30,6 @@ public class CombatManager : MonoBehaviour
     void Start()
     {
         combatQueue = combatQueue.OrderByDescending(combatant => combatant.Initiative).ToList();
-        StartCoroutine(CombatLoop());
     }
 
     IEnumerator CombatLoop()
@@ -119,4 +119,5 @@ public class CombatManager : MonoBehaviour
             }
         }
     }
+    */
 }

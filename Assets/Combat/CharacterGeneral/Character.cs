@@ -21,10 +21,11 @@ public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
     private double speed;
     private string characterName;
     private int xp;
+    private bool isAlive;
 
     public HitPoints HitPoints { get => hitPoints; set => hitPoints = value; }
     public int AC { get => ac; set => ac = value; }
-    public int Initiative { get => initiative; set => initiative = value; }
+    public int Initiative { get => new Die(DieType.D20).RollDie() + abilityScores.GetAbilityModifier(AbilityType.Dexterity) + initiative; set => initiative = value; }
     public double Speed { get => speed; set => speed = value; }
     public string CharacterName { get => characterName; set => characterName = value; }
     public int XP { get => xp; set => xp = value; }
@@ -36,6 +37,7 @@ public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
     internal AbilityScores AbilityScores { get => abilityScores; set => abilityScores = value; }
     internal Equipment Equipment { get => equipment; set => equipment = value; }
     internal Background Background { get => background; set => background = value; }
+    public bool IsAlive { get => isAlive; set => isAlive = value; }
 
     public void Damage(int amount)
     {
@@ -44,7 +46,17 @@ public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
 
     public void Die()
     {
-        throw new NotImplementedException();
+        IsAlive = false;
+    }
+
+    public bool CheckForDeath()
+    {
+        bool isDead = hitPoints.CheckForDeath();
+        if(isDead == true)
+        {
+            IsAlive = false;
+        }
+        return isDead;
     }
 
     public void Heal(int amount)
@@ -113,7 +125,7 @@ public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
         }
         else
         {
-            CombatLog.AddMessageToQueue(CharacterName + " failed at attacking " + target.CharacterName + ".");
+            CombatLog.AddMessageToQueue(CharacterName + " missed the attack on" + target.CharacterName + ".");
         }
     }
 

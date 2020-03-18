@@ -9,5 +9,6 @@ namespace Assets.Combat
     interface IKillable
     {
         void Die();
+        bool CheckForDeath(); // TODO add to diagram
     }
 }
