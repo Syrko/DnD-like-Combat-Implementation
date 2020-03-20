@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
+    // Skeletal implementation of Saving Throws
     class SavingThrows
     {
         private int StrengthST;

@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Simple class with a static message queue.
+/// Messages can be stored from wherever in the code and later instances of the class may appropriately display them
+/// in each frame as they become available (e.g through Unity canvas)
+/// </summary>
 public class CombatLog : MonoBehaviour
 {
     private static Queue<string> messageQueue;

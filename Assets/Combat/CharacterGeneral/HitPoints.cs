@@ -16,12 +16,15 @@ namespace Assets.Combat
         public int CurrentHP { get => currentHP; }
         public int TempHP { get => tempHP; set => tempHP = value; }
 
+        /// <summary>
+        /// Subtract hitpoins from the current and temp pool
+        /// </summary>
+        /// <param name="amount">Amount of damage taken</param>
         public void Damage(int amount)
         {
             if (tempHP == 0)
             {
                 currentHP -= amount;
-                CheckForDeath();
             }
             else if (tempHP > amount)
             {
@@ -32,10 +35,13 @@ namespace Assets.Combat
                 amount -= tempHP;
                 tempHP = 0;
                 currentHP -= amount;
-                CheckForDeath();
             }
         }
 
+        /// <summary>
+        /// Add hitpoins to the current pool
+        /// </summary>
+        /// <param name="amount">Amount of healing</param>
         public void Heal(int amount)
         {
             int missingHP = maxHP - currentHP;
@@ -51,16 +57,23 @@ namespace Assets.Combat
             }
         }
 
+        /// <summary>
+        /// Reseting the current and temp hp pools
+        /// </summary>
         public void Rest()
         {
             currentHP = maxHP;
             tempHP = 0;
         }
 
-        private void CheckForDeath()
+        // TODO change in diagram
+        /// <summary>
+        /// Checks if the character is dead
+        /// </summary>
+        /// <returns>Returns if the current is dead according to the currenthp</returns>
+        public bool CheckForDeath()
         {
-            if (currentHP <= 0)
-                throw new NotImplementedException();
+            return currentHP <= 0;
         }
     }
 }

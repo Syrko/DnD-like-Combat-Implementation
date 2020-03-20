@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
+    /// <summary>
+    /// Class for the ability scores of the characters
+    /// </summary>
     class AbilityScores
     {
         private int strength;
@@ -23,6 +26,10 @@ namespace Assets.Combat
         public int Wisdom { get => wisdom; set => wisdom = value; }
         public int Charisma { get => charisma; set => charisma = value; }
 
+        /// <summary>
+        /// Increases the ability score of the given type
+        /// </summary>
+        /// <param name="abilityType">RECOMMENDED: Get the type from the AbilityType struct</param>
         public void Increase(string abilityType)
         {
             switch (abilityType)
@@ -51,6 +58,11 @@ namespace Assets.Combat
             }
         }
 
+        /// <summary>
+        /// Calculates and returns the ability modifier for the given type
+        /// </summary>
+        /// <param name="abilityType">RECOMMENDED: Get the type from the AbilityType struct</param>
+        /// <returns>The ability modifier</returns>
         public int GetAbilityModifier(string abilityType)
         {
             switch (abilityType)

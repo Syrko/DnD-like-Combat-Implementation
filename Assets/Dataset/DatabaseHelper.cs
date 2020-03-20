@@ -6,6 +6,10 @@ using System;
 
 namespace Assets.Dataset
 {
+    /// <summary>
+    /// Class containing the methods with all the calls to the sqlite database we use.
+    /// Implemented as a singleton.
+    /// </summary>
     class DatabaseHelper
     {
         private static string connection_string = "URI=file:" + Application.dataPath + "/Dataset/DnDEquipment.s3db";
@@ -16,6 +20,10 @@ namespace Assets.Dataset
             
         }
         
+        /// <summary>
+        /// Constructs or gets the already constructed DatabaseHelper
+        /// </summary>
+        /// <returns>DatabaseHelper objet</returns>
         public static DatabaseHelper GetInstance()
         {
             if (instance != null)
@@ -27,6 +35,12 @@ namespace Assets.Dataset
             }
         }
 
+
+        /// <summary>
+        /// Get the weapon from the database as a Weapon object
+        /// </summary>
+        /// <param name="weaponName">String with the weapon's name</param>
+        /// <returns>Weapon object. Note: you can cast the Weapon into any of the children classes(e.g Dagger)</returns>
         public Weapon GetWeapon(string weaponName)
         {
             using(SqliteConnection dbConnection = new SqliteConnection(connection_string))
@@ -65,6 +79,11 @@ namespace Assets.Dataset
             } 
         }
 
+        /// <summary>
+        /// Get the armor piece from the database as an Armor object
+        /// </summary>
+        /// <param name="armorName">String with the armor's name</param>
+        /// <returns>Armor object. Note: you can cast the Armor into any of the children classes(e.g Breastplate)</returns>
         public Armor GetArmor(string armorName)
         {
             using (SqliteConnection dbConnection = new SqliteConnection(connection_string))

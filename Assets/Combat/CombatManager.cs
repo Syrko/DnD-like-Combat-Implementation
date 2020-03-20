@@ -1,17 +1,18 @@
 ﻿using System.Collections;
-using System.Linq;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using System.Linq;
 using Assets.Combat;
 
-public class CombatManager : MonoBehaviour
+public class CombatManager_new : MonoBehaviour
 {
     private List<Character> combatQueue;
     private Character activeCharacter;
+    private int nextActiveCharacterIndex;
 
     /// <summary>
-    /// Get all game objects that are tagged as combatants and put in a list their characterStats component
+    /// Get all game objects that are tagged as combatants and put in a list their 'Character' component
     /// in order to execute combat functions.
     /// </summary>
     private void Awake()
@@ -19,7 +20,7 @@ public class CombatManager : MonoBehaviour
         CombatLog.AddMessageToQueue("The party has entered combat.");
         combatQueue = new List<Character>();
         var characters = GameObject.FindGameObjectsWithTag("Combatant");
-        foreach(var character in characters)
+        foreach (var character in characters)
         {
             combatQueue.Add(character.GetComponent<Character>());
         }
@@ -28,95 +29,136 @@ public class CombatManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Roll initiative for all the combatants at the first frame and place them in the combat queue accordingly
         combatQueue = combatQueue.OrderByDescending(combatant => combatant.Initiative).ToList();
-        StartCoroutine(CombatLoop());
+        CombatLog.AddMessageToQueue("Initiative rolled");
+        nextActiveCharacterIndex = 0;
     }
 
-    IEnumerator CombatLoop()
+    /// <summary>
+    /// Can be called to progress the combat queue.
+    /// If the next character is dead, it proceeds to the next one without needing to be called again.
+    /// </summary>
+    public void NextActiveCharacter()
     {
-        int activeCharIndex = 0;
-        
-        CombatLog.AddMessageToQueue("It is " + activeCharacter.CharacterName + "'s turn.");
-        while (true)
+        do
         {
-            activeCharacter = combatQueue[activeCharIndex];
-            activeCharacter.Speed = activeCharacter.Race.Speed + activeCharacter.CharacterClass.Speed;
-            if (activeCharacter.PlayerControlled)
-            {
-                // Detect if a move was input this frame or yield
-                while (true)
-                {
-                    if (DetectInput())
-                    {
-                        // TODO do action
-                        // e.g activeCharacter.Attack(activeCharacter.Equipment.WeaponList[0], combatQueue[5]);
-                    }
-                    else
-                    {
-                        yield return null;
-                        continue;
-                    }
-                }
-            }
-            else
-            {
-                // TODO choose move for the ai-controlled character
-            }
-
-            if (combatQueue.All(combatant => combatant.PlayerControlled))
-            {
-                CombatLog.AddMessageToQueue("Combat ended in Victory!");
-                EndCombat(true);
-                break;
-            }
-            else if (combatQueue.All(combatant => combatant.PlayerControlled == false))
-            {
-                CombatLog.AddMessageToQueue("You were defeated!");
-                EndCombat(false);
-                break;
-            }
-            else
-            {
-                activeCharIndex = (activeCharIndex + 1) % combatQueue.Count(); // Go through the list, rotating between the combatants
-                CombatLog.AddMessageToQueue("It is " + combatQueue[activeCharIndex].CharacterName + "'s turn.");
-            }
-        }
+            activeCharacter = combatQueue[nextActiveCharacterIndex];
+            nextActiveCharacterIndex = (nextActiveCharacterIndex + 1) % combatQueue.Count(); // Go through the list, rotating between the combatants
+        } while (!activeCharacter.IsAlive);
+        CombatLog.AddMessageToQueue("It's " + activeCharacter.name + "'s turn!");
     }
 
-    bool DetectInput(Weapon weapon, Character actor, Character target, double? distance, string Type = "nothing")
-    {
-        try
-        {
-            switch (Type)
-            {
-                case "Move":
-                    actor.Move(distance.Value);
-                    return true;
-                default:
-                    return false;
-            }
-        }
-        catch(Exception e)
-        {
-            return false;
-        }
+    /// <summary>
+    /// Can be called when a character wants to move and returns true if able.
+    /// </summary>
+    /// <param name="distance">The distance in unity units(meters)</param>
+    /// <returns>Returns true if the character can move or false if not.</returns>
+    public bool ActiveCharacterMoves(double distance)
+    {   
+        bool canMove = activeCharacter.Move(distance);
+        return canMove;
     }
 
-
-    void EndCombat(bool victory)
+    /// <summary>
+    /// Can be called when a character wants to attack.
+    /// </summary>
+    /// <param name="weapon">The equipped weapon</param>
+    /// <param name="target">The target of the attack</param>
+    public void ActiveCharacterAttacks(Weapon weapon, Character target)
     {
-        if (!victory)
+        activeCharacter.Attack(weapon, target);
+        CheckForCombatEnd();
+    }
+
+    public void ActiveCharacterCastsSpell()
+    {
+        throw new NotImplementedException();
+        // CheckForCombatEnd();
+    }
+
+    /// <summary>
+    /// Needs to be called when the combat start for making the first character the active character
+    /// </summary>
+    public void StartCombat()
+    {
+        NextActiveCharacter();
+        activeCharacter.ResetSpeed();
+    }
+
+    /// <summary>
+    /// This method is called when a character ends its turn
+    /// </summary>
+    public void EndActiveCharacterTurn()
+    {
+        NextActiveCharacter();
+        activeCharacter.ResetSpeed();
+    }
+
+    /// <summary>
+    /// This method should be called when the battle ends.
+    /// </summary>
+    /// <param name="Victory">If the player party was victorious this should be true</param>
+    public void EndCombat(bool Victory)
+    {
+        if (!Victory)
         {
-            // TODO reload prompt
+            throw new NotImplementedException();
+            // TODO Show reload screen
         }
         else
         {
-            var combatants = GameObject.FindGameObjectsWithTag("Combatant");
-            foreach(var combatant in combatants)
+            // TODO Show end combat screen
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// Method to be called when a character needs to take damage from a source other than the active character (e.g traps)
+    /// </summary>
+    /// <param name="target">Target of the damage</param>
+    /// <param name="source">Source of the damage</param>
+    public void OthersourceDamage(Character target, object source)
+    {
+        // Have fun
+        // object should be of some type like traps, runes or a fricking cliff etc
+        int amount = 0; // amount = source.DamageAmount
+        target.Damage(amount);
+        CheckForCombatEnd();
+    }
+
+    /// <summary>
+    /// Should be called after damage is dealt to ensure a check is run for combat end.
+    /// </summary>
+    private void CheckForCombatEnd()
+    {
+        // Iterates through the combat queue to find if any new characters died.
+        foreach (Character character in combatQueue)
+        {
+            bool isDead = character.CheckForDeath();
+            if (isDead)
             {
-                // TODO change to character tag
-                combatant.tag = "temp";
+                CombatLog.AddMessageToQueue(character.name + " has died!");
             }
+        }
+        // Checks to see if the combat end requiriments have been reached.
+        if (combatQueue.Any(combatant => combatant.PlayerControlled && combatant.IsAlive))
+        {
+            if (combatQueue.Any(combatant => !combatant.PlayerControlled && combatant.IsAlive))
+            {
+                // Battle continues
+                return;
+            }
+            else
+            {
+                // Victory
+                EndCombat(true);
+            }
+        }
+        else
+        {
+            // The party loses
+            EndCombat(false);
         }
     }
 }

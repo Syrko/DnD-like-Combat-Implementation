@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Combat
 {
+    /// <summary>
+    /// Barebones implementation of background class
+    /// </summary>
     class Background
     {
         private string name;
