@@ -39,7 +39,7 @@ public class CombatManager_new : MonoBehaviour
     /// Can be called to progress the combat queue.
     /// If the next character is dead, it proceeds to the next one without needing to be called again.
     /// </summary>
-    public void NextActiveCharacter()
+    private void NextActiveCharacter()
     {
         do
         {
@@ -99,7 +99,7 @@ public class CombatManager_new : MonoBehaviour
     /// This method should be called when the battle ends.
     /// </summary>
     /// <param name="Victory">If the player party was victorious this should be true</param>
-    public void EndCombat(bool Victory)
+    private void EndCombat(bool Victory)
     {
         if (!Victory)
         {
