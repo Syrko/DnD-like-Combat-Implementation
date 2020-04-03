@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using Assets.Combat;
+using Assets.Combat.CharacterGeneral;
 using System;
 using Assets;
 
 /// <summary>
 /// Basic character class containing the necessary stats and methods to simulate a character of dnd.
 /// </summary>
-public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
+internal class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
 {
     // private Item[3] attunement
 
@@ -25,6 +26,17 @@ public class Character : MonoBehaviour, IDamageable, IKillable, ICharacter
     private string characterName;
     private int xp;
     private bool isAlive;
+
+    // TODO alter this -- temporary for runtime  example -- need to change according to character creation
+    private void Awake()
+    {
+        this.initiative = 0;
+        this.abilityScores = new AbilityScores();
+        this.isAlive = true;
+        this.CharacterName = "test" + this.name;
+        this.CharacterClass = new VanillaRogue();
+        this.Race = new DummyRace();
+    }
 
     public HitPoints HitPoints { get => hitPoints; set => hitPoints = value; }
     public int AC { get => ac; set => ac = value; }

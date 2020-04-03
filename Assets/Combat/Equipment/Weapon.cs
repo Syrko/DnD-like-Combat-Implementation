@@ -10,7 +10,7 @@ namespace Assets.Combat
     /// Parent class for all the weapons of the game.
     /// Every individual weapon type inherits and can be cast to and from this class.
     /// </summary>
-    public class Weapon : Equipment
+    public class Weapon
     {
         private Die dieDamage;
         private int numberOfDice; 

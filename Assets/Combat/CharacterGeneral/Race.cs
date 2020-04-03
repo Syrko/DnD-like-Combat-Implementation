@@ -12,16 +12,16 @@ namespace Assets.Combat
     abstract class Race
     {
         // Name of the race (e.g Elf, Human)
-        private string name;
+        protected string name;
 
         // Entries for the skills the race has advantage or disadvantages
-        private Dictionary<string, int> abilityScoreIncrease;
-        private Dictionary<string, int> abilityScoreDecrease;
+        protected Dictionary<string, int> abilityScoreIncrease;
+        protected Dictionary<string, int> abilityScoreDecrease;
 
         // Speed of the race in feet
-        private double speed;
+        protected double speed;
         // Languages the race is fluent in
-        private List<string> languages;
+        protected List<string> languages;
 
         public string Name { get => name; set => name = value; }
         public Dictionary<string, int> AbilityScoreIncrease { get => abilityScoreIncrease; set => abilityScoreIncrease = value; }

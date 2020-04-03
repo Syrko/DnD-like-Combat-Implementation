@@ -10,7 +10,7 @@ namespace Assets.Combat
     /// Parent class for all the armors of the game.
     /// Every individual armor type inherits and can be cast to and from this class.
     /// </summary>
-    public class Armor : Equipment
+    public class Armor
     {
         private int acBonus;
         private string name;

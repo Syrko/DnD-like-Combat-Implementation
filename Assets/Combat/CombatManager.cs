@@ -5,10 +5,10 @@ using UnityEngine;
 using System.Linq;
 using Assets.Combat;
 
-public class CombatManager_new : MonoBehaviour
+public class CombatManager : MonoBehaviour
 {
     private List<Character> combatQueue;
-    private Character activeCharacter;
+    internal Character activeCharacter;  // Make private after deleting runtime example
     private int nextActiveCharacterIndex;
 
     /// <summary>
@@ -17,7 +17,6 @@ public class CombatManager_new : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        CombatLog.AddMessageToQueue("The party has entered combat.");
         combatQueue = new List<Character>();
         var characters = GameObject.FindGameObjectsWithTag("Combatant");
         foreach (var character in characters)
@@ -29,6 +28,7 @@ public class CombatManager_new : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CombatLog.AddMessageToQueue("The party has entered combat.");
         // Roll initiative for all the combatants at the first frame and place them in the combat queue accordingly
         combatQueue = combatQueue.OrderByDescending(combatant => combatant.Initiative).ToList();
         CombatLog.AddMessageToQueue("Initiative rolled");
@@ -36,7 +36,7 @@ public class CombatManager_new : MonoBehaviour
     }
 
     /// <summary>
-    /// Can be called to progress the combat queue.
+    /// Needs to be called to progress the combat queue.
     /// If the next character is dead, it proceeds to the next one without needing to be called again.
     /// </summary>
     private void NextActiveCharacter()
@@ -46,26 +46,30 @@ public class CombatManager_new : MonoBehaviour
             activeCharacter = combatQueue[nextActiveCharacterIndex];
             nextActiveCharacterIndex = (nextActiveCharacterIndex + 1) % combatQueue.Count(); // Go through the list, rotating between the combatants
         } while (!activeCharacter.IsAlive);
-        CombatLog.AddMessageToQueue("It's " + activeCharacter.name + "'s turn!");
+        CombatLog.AddMessageToQueue("It's " + activeCharacter.CharacterName + "'s turn!");
     }
 
     /// <summary>
-    /// Can be called when a character wants to move and returns true if able.
+    /// Needs to be called when a character wants to move and returns true if able.
     /// </summary>
     /// <param name="distance">The distance in unity units(meters)</param>
     /// <returns>Returns true if the character can move or false if not.</returns>
     public bool ActiveCharacterMoves(double distance)
     {   
         bool canMove = activeCharacter.Move(distance);
+        if (!canMove)
+        {
+            CombatLog.AddMessageToQueue(activeCharacter.CharacterName + " can't move that far this round!");
+        }
         return canMove;
     }
 
     /// <summary>
-    /// Can be called when a character wants to attack.
+    /// Needs to be called when a character wants to attack.
     /// </summary>
     /// <param name="weapon">The equipped weapon</param>
     /// <param name="target">The target of the attack</param>
-    public void ActiveCharacterAttacks(Weapon weapon, Character target)
+    internal void ActiveCharacterAttacks(Weapon weapon, Character target)
     {
         activeCharacter.Attack(weapon, target);
         CheckForCombatEnd();
@@ -118,7 +122,7 @@ public class CombatManager_new : MonoBehaviour
     /// </summary>
     /// <param name="target">Target of the damage</param>
     /// <param name="source">Source of the damage</param>
-    public void OthersourceDamage(Character target, object source)
+    internal void OthersourceDamage(Character target, object source)
     {
         // Have fun
         // object should be of some type like traps, runes or a fricking cliff etc
@@ -138,7 +142,7 @@ public class CombatManager_new : MonoBehaviour
             bool isDead = character.CheckForDeath();
             if (isDead)
             {
-                CombatLog.AddMessageToQueue(character.name + " has died!");
+                CombatLog.AddMessageToQueue(character.CharacterName + " has died!");
             }
         }
         // Checks to see if the combat end requiriments have been reached.

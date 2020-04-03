@@ -19,6 +19,16 @@ namespace Assets.Combat
         private int wisdom;
         private int charisma;
 
+        public AbilityScores(int strength = 10, int dexterity = 10, int constitution = 10, int intelligence = 10, int wisdom = 10, int charisma = 10)
+        {
+            this.strength = strength;
+            this.dexterity = dexterity;
+            this.constitution = constitution;
+            this.intelligence = intelligence;
+            this.wisdom = wisdom;
+            this.charisma = charisma;
+        }
+
         public int Strength { get => strength; set => strength = value; }
         public int Dexterity { get => dexterity; set => dexterity = value; }
         public int Constitution { get => constitution; set => constitution = value; }

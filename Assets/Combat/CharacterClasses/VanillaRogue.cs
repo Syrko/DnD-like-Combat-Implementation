@@ -8,11 +8,12 @@ namespace Assets.Combat
 {
     class VanillaRogue : Rogue
     {
-        VanillaRogue()
+        internal VanillaRogue()
         {
             name = "Rogue";
             hitDie = new Die(DieType.D8);
             this.level = 1;
+            this.Speed = 10;
         }
     }
 }

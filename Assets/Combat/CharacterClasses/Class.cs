@@ -16,6 +16,7 @@ namespace Assets.Combat
         private List<string> proficiencies;
         private double speed;
 
+
         public List<string> Proficiencies { get => proficiencies; }
         public double Speed { get => speed; set => speed = value; }
 

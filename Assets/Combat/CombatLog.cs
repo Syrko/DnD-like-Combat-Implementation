@@ -23,6 +23,11 @@ public class CombatLog : MonoBehaviour
         {
             string msg = messageQueue.Dequeue();
             // TODO print msg
+
+            //===================
+            // Temporary:
+            Debug.Log(msg);
+            //===================
         }
     }
 
