@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Assets.Combat;
+using Assets;
 
 public class CombatManager : MonoBehaviour
 {
@@ -69,10 +70,17 @@ public class CombatManager : MonoBehaviour
     /// </summary>
     /// <param name="weapon">The equipped weapon</param>
     /// <param name="target">The target of the attack</param>
-    internal void ActiveCharacterAttacks(Weapon weapon, Character target)
+    internal void ActiveCharacterAttacks(Weapon weapon, Character target, double distance)
     {
-        activeCharacter.Attack(weapon, target);
-        CheckForCombatEnd();
+        if(weapon.Range >= HelperFunctions.MetersToFeet(distance))
+        {
+            activeCharacter.Attack(weapon, target);
+            CheckForCombatEnd();
+        }
+        else
+        {
+            CombatLog.AddMessageToQueue("Not enough range to attack!");
+        }
     }
 
     public void ActiveCharacterCastsSpell()
